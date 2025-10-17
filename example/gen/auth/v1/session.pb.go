@@ -436,8 +436,8 @@ const file_auth_v1_session_proto_rawDesc = "" +
 	"\x0eSessionService\x12;\n" +
 	"\x06SignIn\x12\x16.auth.v1.SignInRequest\x1a\x17.auth.v1.SignInResponse\"\x00\x12>\n" +
 	"\aRefresh\x12\x17.auth.v1.RefreshRequest\x1a\x18.auth.v1.RefreshResponse\"\x00\x12>\n" +
-	"\aSignOut\x12\x17.auth.v1.SignOutRequest\x1a\x18.auth.v1.SignOutResponse\"\x00B\x8b\x01\n" +
-	"\vcom.auth.v1B\fSessionProtoP\x01Z1github.com/connecttest-example/gen/auth/v1;authv1\xa2\x02\x03AXX\xaa\x02\aAuth.V1\xca\x02\aAuth\\V1\xe2\x02\x13Auth\\V1\\GPBMetadata\xea\x02\bAuth::V1b\x06proto3"
+	"\aSignOut\x12\x17.auth.v1.SignOutRequest\x1a\x18.auth.v1.SignOutResponse\"\x00B\x93\x01\n" +
+	"\vcom.auth.v1B\fSessionProtoP\x01Z9github.com/mickamy/connecttest-example/gen/auth/v1;authv1\xa2\x02\x03AXX\xaa\x02\aAuth.V1\xca\x02\aAuth\\V1\xe2\x02\x13Auth\\V1\\GPBMetadata\xea\x02\bAuth::V1b\x06proto3"
 
 var (
 	file_auth_v1_session_proto_rawDescOnce sync.Once
