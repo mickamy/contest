@@ -2,19 +2,23 @@ package connecttest
 
 import (
 	"bytes"
+	"encoding/base64"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"strconv"
 	"strings"
 
 	"connectrpc.com/connect"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 type T interface {
 	Helper()
 	Fatalf(format string, args ...any)
+	Logf(format string, args ...any)
 }
 
 type Client struct {
@@ -82,8 +86,9 @@ func (c *Client) Do() *Client {
 	c.resp = recorder
 	c.didDo = true
 
-	if code, ok := connectCodeFromHeaders(recorder.Result()); ok {
-		c.lastErr = connect.NewError(code, errors.New(recorder.Body.String()))
+	ce, _ := detectConnErr(c.resp.Body.Bytes())
+	if ce != nil {
+		c.lastErr = ce
 	}
 
 	return c
@@ -125,6 +130,15 @@ func (c *Client) Out(dst proto.Message) *Client {
 	return c
 }
 
+func (c *Client) Err() error {
+	c.t.Helper()
+	c.ensureDid()
+	if c.lastErr == nil {
+		return nil
+	}
+	return c.lastErr
+}
+
 // ----- Helpers -----
 
 func (c *Client) ensureDid() {
@@ -134,17 +148,76 @@ func (c *Client) ensureDid() {
 	}
 }
 
-func connectCodeFromHeaders(r *http.Response) (connect.Code, bool) {
-	if v := r.Header.Get("Grpc-Status"); v != "" {
-		connectCode(v)
+func detectConnErr(body []byte) (*connect.Error, error) {
+	var rc rawConnErr
+	if err := json.Unmarshal(body, &rc); err != nil {
+		return nil, fmt.Errorf("unmarshal connect error: %w", err)
 	}
-	return connect.CodeUnknown, false
+	ce, err := rc.toConnErr()
+	if err != nil {
+		return nil, fmt.Errorf("convert to connect error: %w", err)
+	}
+	if len(rc.Details) == 0 {
+		return ce, nil
+	}
+	details, err := rc.unmarshalDetails()
+	if err != nil {
+		return nil, fmt.Errorf("unmarshal error details: %w", err)
+	}
+	for _, d := range details {
+		ce.AddDetail(d)
+	}
+	return ce, nil
 }
 
-func connectCode(s string) (connect.Code, bool) {
-	code, err := strconv.Atoi(s)
+type rawConnErr struct {
+	Code    string      `json:"code"`
+	Message string      `json:"message"`
+	Details []rawDetail `json:"details"`
+}
+
+func (rc *rawConnErr) toConnErr() (*connect.Error, error) {
+	code, err := sToConnectCode(rc.Code)
 	if err != nil {
-		return connect.CodeUnknown, false
+		return nil, fmt.Errorf("invalid connect error code: %w", err)
 	}
-	return connect.Code(code), true
+	return connect.NewError(code, errors.New(rc.Message)), nil
+}
+
+func (rc *rawConnErr) unmarshalDetails() ([]*connect.ErrorDetail, error) {
+	details := make([]*connect.ErrorDetail, 0, len(rc.Details))
+	for _, d := range rc.Details {
+		if d.Value == "" {
+			continue
+		}
+		raw, err := decodeB64(d.Value)
+		if err != nil {
+			return nil, fmt.Errorf("base64 decode detail: %w", err)
+		}
+		typeURL := d.Type
+		if !strings.Contains(d.Type, "/") {
+			typeURL = "type.googleapis.com/" + d.Type
+		}
+		ed, err := connect.NewErrorDetail(&anypb.Any{
+			TypeUrl: typeURL,
+			Value:   raw,
+		})
+		if err != nil {
+			return nil, fmt.Errorf("create error detail: %w", err)
+		}
+		details = append(details, ed)
+	}
+	return details, nil
+}
+
+func decodeB64(s string) ([]byte, error) {
+	if b, err := base64.StdEncoding.DecodeString(s); err == nil {
+		return b, nil
+	}
+	return base64.RawStdEncoding.DecodeString(s)
+}
+
+type rawDetail struct {
+	Type  string `json:"type"`
+	Value string `json:"value"`
 }

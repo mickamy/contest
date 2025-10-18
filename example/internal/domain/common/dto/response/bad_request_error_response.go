@@ -17,6 +17,7 @@ type BadRequestError struct {
 func NewBadRequestError(underlyingErr error, fieldViolations ...FieldViolation) *BadRequestError {
 	return &BadRequestError{
 		Err:             underlyingErr,
+		Message:         underlyingErr.Error(),
 		FieldViolations: fieldViolations,
 	}
 }
