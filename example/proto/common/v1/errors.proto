@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package common.v1;
+
+import "google/rpc/error_details.proto";
+
+message ErrorDetails {
+  string message = 1;
+
+  oneof payload {
+    google.rpc.BadRequest bad_request = 2;
+  }
+}

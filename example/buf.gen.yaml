@@ -12,3 +12,4 @@ plugins:
     out: gen
 inputs:
   - directory: proto
+  - module: buf.build/googleapis/googleapis
