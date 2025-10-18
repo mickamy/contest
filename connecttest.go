@@ -130,7 +130,7 @@ func (c *Client) Out(dst proto.Message) *Client {
 	return c
 }
 
-func (c *Client) Err() error {
+func (c *Client) Err() *connect.Error {
 	c.t.Helper()
 	c.ensureDid()
 	if c.lastErr == nil {

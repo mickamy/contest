@@ -29,7 +29,7 @@ func TestSession_SignIn(t *testing.T) {
 		uc        func(ctrl *gomock.Controller) usecase.CreateSession
 		wantCode  int
 		assertRes func(t *testing.T, res *authv1.SignInResponse)
-		assertErr func(t *testing.T, err error)
+		assertErr func(t *testing.T, err *connect.Error)
 	}{
 		{
 			name: "success",
@@ -42,7 +42,7 @@ func TestSession_SignIn(t *testing.T) {
 				assert.NotZero(t, res.Tokens.Access)
 				assert.NotZero(t, res.Tokens.Refresh)
 			},
-			assertErr: func(t *testing.T, err error) {
+			assertErr: func(t *testing.T, err *connect.Error) {
 				require.NoError(t, err)
 			},
 		},
@@ -54,11 +54,10 @@ func TestSession_SignIn(t *testing.T) {
 				return uc
 			},
 			wantCode: http.StatusBadRequest,
-			assertErr: func(t *testing.T, err error) {
-				var connErr *connect.Error
-				require.ErrorAs(t, err, &connErr)
-				cerrors.AssertCode(t, connect.CodeInvalidArgument, connErr)
-				errDetails := cerrors.ExtractErrorDetails(t, connErr)
+			assertErr: func(t *testing.T, err *connect.Error) {
+				require.Error(t, err)
+				cerrors.AssertCode(t, connect.CodeInvalidArgument, err)
+				errDetails := cerrors.ExtractErrorDetails(t, err)
 				assert.Equal(t, "bad request", errDetails.Message)
 			},
 		},

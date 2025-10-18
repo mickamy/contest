@@ -32,23 +32,6 @@ func ExtractErrorDetails(t *testing.T, connErr *connect.Error) *commonv1.ErrorDe
 	return nil
 }
 
-func AsErrorDetails(t *testing.T, err error) *commonv1.ErrorDetails {
-	t.Helper()
-
-	require.Error(t, err)
-	var connErr *connect.Error
-	require.ErrorAs(t, err, &connErr)
-	require.Len(t, connErr.Details(), 1)
-
-	detail := either.Must(connErr.Details()[0].Value())
-	if commonErr, ok := detail.(*commonv1.ErrorDetails); ok {
-		return commonErr
-	}
-
-	t.Fatalf("unexpected error type: %T", detail)
-	return nil
-}
-
 func AsBadRequest(t *testing.T, errDetails *commonv1.ErrorDetails) *rpc.BadRequest {
 	t.Helper()
 
