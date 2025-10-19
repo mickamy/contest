@@ -87,7 +87,7 @@ ct.Do().ExpectStatus(http.StatusOK).Out(&res)
 ### Handling errors
 
 ```go
-if err := ct.Err(); err != nil {
+if connErr := ct.Err(); connErr != nil {
     fmt.Println(connErr.Code(), connErr.Message())
 }
 ```
