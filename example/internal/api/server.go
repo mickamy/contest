@@ -13,9 +13,11 @@ import (
 	"github.com/mickamy/connecttest-example/internal/domain/session"
 )
 
+type Router = func(mux *http.ServeMux, options ...connect.HandlerOption)
+
 func NewServer() http.Server {
 	api := http.NewServeMux()
-	for _, route := range []func(mux *http.ServeMux, options ...connect.HandlerOption){
+	for _, route := range []Router{
 		session.Route,
 	} {
 		route(api)
