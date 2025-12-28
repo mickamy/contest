@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/mickamy/connecttest-example/internal/domain/session/model"
+	"github.com/mickamy/contest/example/internal/domain/session/model"
 )
 
 type CreateSessionInput struct {

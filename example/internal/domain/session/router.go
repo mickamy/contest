@@ -5,9 +5,9 @@ import (
 
 	"connectrpc.com/connect"
 
-	"github.com/mickamy/connecttest-example/gen/github.com/mickamy/connecttest-example/gen/auth/v1/authv1connect"
-	"github.com/mickamy/connecttest-example/internal/domain/session/handler"
-	"github.com/mickamy/connecttest-example/internal/domain/session/usecase"
+	"github.com/mickamy/contest/example/gen/github.com/mickamy/contest/example/gen/auth/v1/authv1connect"
+	"github.com/mickamy/contest/example/internal/domain/session/handler"
+	"github.com/mickamy/contest/example/internal/domain/session/usecase"
 )
 
 func Route(mux *http.ServeMux, options ...connect.HandlerOption) {

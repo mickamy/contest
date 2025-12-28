@@ -12,13 +12,13 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
 
-	"github.com/mickamy/connecttest"
-	authv1 "github.com/mickamy/connecttest-example/gen/auth/v1"
-	"github.com/mickamy/connecttest-example/gen/github.com/mickamy/connecttest-example/gen/auth/v1/authv1connect"
-	"github.com/mickamy/connecttest-example/internal/domain/session/handler"
-	"github.com/mickamy/connecttest-example/internal/domain/session/usecase"
-	"github.com/mickamy/connecttest-example/internal/domain/session/usecase/mock_usecase"
-	"github.com/mickamy/connecttest-example/test/cerrors"
+	"github.com/mickamy/contest"
+	authv1 "github.com/mickamy/contest/example/gen/auth/v1"
+	"github.com/mickamy/contest/example/gen/github.com/mickamy/contest/example/gen/auth/v1/authv1connect"
+	"github.com/mickamy/contest/example/internal/domain/session/handler"
+	"github.com/mickamy/contest/example/internal/domain/session/usecase"
+	"github.com/mickamy/contest/example/internal/domain/session/usecase/mock_usecase"
+	"github.com/mickamy/contest/example/test/cerrors"
 )
 
 func TestSession_SignIn(t *testing.T) {
@@ -72,7 +72,7 @@ func TestSession_SignIn(t *testing.T) {
 			defer ctrl.Finish()
 
 			var out authv1.SignInResponse
-			ct := connecttest.
+			ct := contest.
 				New(t, either.Right(authv1connect.NewSessionServiceHandler(handler.NewSession(tc.uc(ctrl))))).
 				Procedure(authv1connect.SessionServiceSignInProcedure).
 				In(&authv1.SignInRequest{

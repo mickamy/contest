@@ -22,7 +22,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	longrunning "github.com/mickamy/connecttest-example/gen/google/longrunning"
+	longrunning "github.com/mickamy/contest/example/gen/google/longrunning"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	http "net/http"
 	strings "strings"

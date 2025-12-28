@@ -1,15 +1,15 @@
-module github.com/mickamy/connecttest-example
+module github.com/mickamy/contest/example
 
 go 1.25.3
 
-replace github.com/mickamy/connecttest => ../
+replace github.com/mickamy/contest => ../
 
 require (
 	connectrpc.com/connect v1.19.1
 	github.com/brianvoe/gofakeit/v7 v7.8.0
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/google/uuid v1.6.0
-	github.com/mickamy/connecttest v0.0.0
+	github.com/mickamy/contest v0.0.0
 	github.com/mickamy/gokitx v0.0.2
 	github.com/rs/cors v1.11.1
 	github.com/stretchr/testify v1.11.1

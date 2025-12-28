@@ -5,7 +5,7 @@ import (
 
 	"connectrpc.com/connect"
 
-	commonv1 "github.com/mickamy/connecttest-example/gen/common/v1"
+	commonv1 "github.com/mickamy/contest/example/gen/common/v1"
 )
 
 type InternalError struct {

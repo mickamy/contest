@@ -9,11 +9,11 @@ import (
 
 	"github.com/google/uuid"
 
-	authv1 "github.com/mickamy/connecttest-example/gen/auth/v1"
-	"github.com/mickamy/connecttest-example/gen/github.com/mickamy/connecttest-example/gen/auth/v1/authv1connect"
-	commonResponse "github.com/mickamy/connecttest-example/internal/domain/common/dto/response"
-	"github.com/mickamy/connecttest-example/internal/domain/session/dto/response"
-	"github.com/mickamy/connecttest-example/internal/domain/session/usecase"
+	authv1 "github.com/mickamy/contest/example/gen/auth/v1"
+	"github.com/mickamy/contest/example/gen/github.com/mickamy/contest/example/gen/auth/v1/authv1connect"
+	commonResponse "github.com/mickamy/contest/example/internal/domain/common/dto/response"
+	"github.com/mickamy/contest/example/internal/domain/session/dto/response"
+	"github.com/mickamy/contest/example/internal/domain/session/usecase"
 )
 
 type Session struct {
