@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mickamy/connecttest-example/internal/api"
+	"github.com/mickamy/contest/example/internal/api"
 )
 
 func main() {

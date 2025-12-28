@@ -1,4 +1,4 @@
-package connecttest
+package contest
 
 import (
 	"bytes"

@@ -1,6 +1,6 @@
-# connecttest
+# contest
 
-`connecttest` is a lightweight DSL for testing [ConnectRPC](https://connectrpc.com) handlers.
+`contest` is a lightweight DSL for testing [ConnectRPC](https://connectrpc.com) handlers.
 It executes handlers directly using Go's `httptest` package, automatically decodes `connect.Error` responses, and
 provides a fluent, expressive API for asserting response behavior.
 
@@ -33,10 +33,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/mickamy/connecttest"
-	authv1 "github.com/mickamy/connecttest-example/gen/auth/v1"
-	"github.com/mickamy/connecttest-example/gen/github.com/mickamy/connecttest-example/gen/auth/v1/authv1connect"
-	"github.com/mickamy/connecttest-example/internal/domain/session/handler"
+	"github.com/mickamy/contest"
+	authv1 "github.com/mickamy/contest/example/gen/auth/v1"
+	"github.com/mickamy/contest/example/gen/github.com/mickamy/contest/example/gen/auth/v1/authv1connect"
+	"github.com/mickamy/contest/example/internal/domain/session/handler"
 )
 
 func TestSession_SignIn(t *testing.T) {
@@ -45,7 +45,7 @@ func TestSession_SignIn(t *testing.T) {
 	var out authv1.SignInResponse
 
 	_, server := authv1connect.NewSessionServiceHandler(handler.NewSession())
-	ct := connecttest.
+	ct := contest.
 		New(t, server).
 		Procedure(authv1connect.SessionServiceSignInProcedure).
 		In(&authv1.SignInRequest{
@@ -69,7 +69,7 @@ func TestSession_SignIn(t *testing.T) {
 ### Creating a client
 
 ```go
-ct := connecttest.New(t, handler)
+ct := contest.New(t, handler)
 ```
 
 ### Configuring a request

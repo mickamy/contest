@@ -22,7 +22,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	bytestream "github.com/mickamy/connecttest-example/gen/google/bytestream"
+	bytestream "github.com/mickamy/contest/example/gen/google/bytestream"
 	http "net/http"
 	strings "strings"
 )

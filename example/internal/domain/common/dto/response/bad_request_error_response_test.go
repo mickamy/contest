@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	commonv1 "github.com/mickamy/connecttest-example/gen/common/v1"
-	"github.com/mickamy/connecttest-example/internal/domain/common/dto/response"
+	commonv1 "github.com/mickamy/contest/example/gen/common/v1"
+	"github.com/mickamy/contest/example/internal/domain/common/dto/response"
 )
 
 func TestBadRequestError_AsConnectError(t *testing.T) {

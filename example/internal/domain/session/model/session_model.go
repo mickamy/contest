@@ -3,7 +3,7 @@ package model
 import (
 	"fmt"
 
-	"github.com/mickamy/connecttest-example/internal/lib/jwt"
+	"github.com/mickamy/contest/example/internal/lib/jwt"
 )
 
 type Session struct {

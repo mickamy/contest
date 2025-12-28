@@ -13,7 +13,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	usecase "github.com/mickamy/connecttest-example/internal/domain/session/usecase"
+	usecase "github.com/mickamy/contest/example/internal/domain/session/usecase"
 	gomock "go.uber.org/mock/gomock"
 )
 

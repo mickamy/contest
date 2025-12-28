@@ -4,8 +4,8 @@ import (
 	"connectrpc.com/connect"
 	"github.com/mickamy/gokitx/slices"
 
-	commonv1 "github.com/mickamy/connecttest-example/gen/common/v1"
-	"github.com/mickamy/connecttest-example/gen/google/rpc"
+	commonv1 "github.com/mickamy/contest/example/gen/common/v1"
+	"github.com/mickamy/contest/example/gen/google/rpc"
 )
 
 type BadRequestError struct {

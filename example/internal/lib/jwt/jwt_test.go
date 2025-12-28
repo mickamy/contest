@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mickamy/connecttest-example/internal/lib/jwt"
+	"github.com/mickamy/contest/example/internal/lib/jwt"
 )
 
 func TestJWT_New(t *testing.T) {

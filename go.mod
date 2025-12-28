@@ -1,4 +1,4 @@
-module github.com/mickamy/connecttest
+module github.com/mickamy/contest
 
 go 1.24.0
 

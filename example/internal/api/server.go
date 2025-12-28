@@ -10,7 +10,7 @@ import (
 
 	"connectrpc.com/connect"
 
-	"github.com/mickamy/connecttest-example/internal/domain/session"
+	"github.com/mickamy/contest/example/internal/domain/session"
 )
 
 type Router = func(mux *http.ServeMux, options ...connect.HandlerOption)
