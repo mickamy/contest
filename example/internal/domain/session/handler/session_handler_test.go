@@ -43,7 +43,7 @@ func TestSession_SignIn(t *testing.T) {
 				assert.NotZero(t, res.Tokens.Refresh)
 			},
 			assertErr: func(t *testing.T, err *connect.Error) {
-				require.NoError(t, err)
+				require.Nil(t, err)
 			},
 		},
 		{
