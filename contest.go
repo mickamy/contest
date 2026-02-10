@@ -21,6 +21,8 @@ type T interface {
 	Logf(format string, args ...any)
 }
 
+type NewHandlerFunc = func(...connect.HandlerOption) (string, http.Handler)
+
 type Client struct {
 	t           T
 	h           http.Handler
@@ -39,6 +41,24 @@ func New(t T, h http.Handler) *Client {
 		t:       t,
 		h:       h,
 		headers: make(http.Header),
+	}
+}
+
+func NewWith(t T, f NewHandlerFunc, opts ...connect.HandlerOption) *Client {
+	t.Helper()
+	_, h := f(opts...)
+	return &Client{
+		t:       t,
+		h:       h,
+		headers: make(http.Header),
+	}
+}
+
+func Bind[H any](newHandler func(H, ...connect.HandlerOption) (string, http.Handler)) func(H) NewHandlerFunc {
+	return func(svc H) NewHandlerFunc {
+		return func(opts ...connect.HandlerOption) (string, http.Handler) {
+			return newHandler(svc, opts...)
+		}
 	}
 }
 
